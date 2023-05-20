@@ -1,0 +1,8 @@
+# dependencies
+**node_modules
+
+# env
+**.env
+**.env.stage.dev
+**.env.stage.prod
+**.env.docker
