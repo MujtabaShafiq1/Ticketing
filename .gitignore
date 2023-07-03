@@ -8,4 +8,5 @@
 **.env.docker
 
 # misc
+track.md
 # /nats-test
