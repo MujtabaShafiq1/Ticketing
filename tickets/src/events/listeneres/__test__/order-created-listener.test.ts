@@ -13,10 +13,9 @@ const setup = async () => {
   const ticket = Ticket.build({
     title: "concert",
     price: 99,
-    userId: "asdf"
-  })
-  await ticket.save()
-
+    userId: "asdf",
+  });
+  await ticket.save();
 
   // create a fake data event
   const data: OrderCreatedEvent["data"] = {
@@ -26,8 +25,8 @@ const setup = async () => {
     userId: "adasaf",
     expiresAt: "asdsdfgs",
     ticket: {
-        id: ticket.id,
-        price: ticket.price,
+      id: ticket.id,
+      price: ticket.price,
     },
   };
 
@@ -61,4 +60,19 @@ it("acks the message", async () => {
 
   // write assertions to make sure ack function is called
   expect(msg.ack).toHaveBeenCalled();
+});
+
+it("publishes a ticket updated event", async () => {
+  const { data, ticket, listener, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  // @ts-ignore
+  const ticketUpdatedData = JSON.parse(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  );
+
+  expect(data.id).toEqual(ticketUpdatedData.orderId);
 });
