@@ -13,7 +13,7 @@ const Header = ({ currentUser }) => {
       return (
         <li key={href} className="nav-item">
           <Link href={href}>
-            <a className="nav-link">{label}</a>
+            <div className="nav-link">{label}</div>
           </Link>
         </li>
       );
@@ -22,7 +22,7 @@ const Header = ({ currentUser }) => {
   return (
     <nav className="navbar navbar-light bg-light">
       <Link href="/">
-        <a className="navbar-brand">GitTix</a>
+        <div className="navbar-brand">GitTix</div>
       </Link>
 
       <div className="d-flex justify-content-end">
